@@ -9,7 +9,13 @@ Guardian Care is a two-layer safety monitoring platform for elderly people, peop
 - **Module 1: Lost Alert System (LAS).** Outdoor GPS geofencing (FastAPI, Haversine distance, a webhook alert that repeats until the person is back inside the safe zone). **Out of scope for now: do not work on Module 1 until told otherwise.**
 - **Module 2: Fall & Violent Detection System (FVDS).** Indoor AI camera. This is the current focus.
 
-No code has been written yet, so there are no build, lint or test commands. Add them here once each sub-project is scaffolded.
+## Commands
+
+There is no lint setup or automated test suite yet. Each Python service has its own venv and `.env` (copy from `.env.example`) and is run from its own folder:
+
+- **besus** (`fvds/sus/besus`, port 8000): `pip install -r requirements.txt`, then `uvicorn app.main:app --reload`. Needs a MySQL database `camera_db` created by hand.
+- **beaicam** (`fvds/aicam/beaicam`, port 8001, Python 3.10): `uv venv .venv --python 3.10 && uv pip install -p .venv -r requirements.txt`, then `uvicorn app.main:app --reload --port 8001`. Model files go in `models/` (git-ignored, download commands are in its README section 0.3). `USE_CLOUD_STORAGE=false` runs fully local with videos from `data/input_videos/`.
+- fesus has not been scaffolded yet.
 
 ## FVDS architecture (planned)
 
